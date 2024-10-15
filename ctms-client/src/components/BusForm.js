@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import backgroundImage from '../assets/background.jpg'; 
+import backgroundImage from '../assets/background.jpg'; // Background image
+import collegeLogo from '../assets/logo.png'; // Optional college logo
 
 const BusForm = () => {
   const navigate = useNavigate();
@@ -22,20 +23,47 @@ const BusForm = () => {
     }
   };
 
+  // Page style
+  const pageStyle = {
+    position: 'relative',
+    width: '100%',
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    margin: 0,
+    padding: 0,
+  };
+
+  // Blurred background style
+  const blurredBackgroundStyle = {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundImage: `url(${backgroundImage})`, // Use the imported background image
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    filter: 'blur(8px)', // Apply blur effect
+    zIndex: -1, // Behind content
+    opacity: 0.6, // Transparency for effect
+  };
+
+  // Form container style
   const formContainerStyle = {
-    backgroundImage: `url(${backgroundImage})`, // Use the imported image
-    backgroundSize: 'cover', // Ensure the image covers the entire background
-    backgroundPosition: 'center', // Center the image
-    backgroundRepeat: 'no-repeat', // Prevent repeating the image
+    zIndex: 1, // Make sure content is above the background
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: '50px',
     padding: '20px',
     borderRadius: '10px',
     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
-    backgroundColor: '#f9f9f9',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)', // Slightly transparent background for form
     maxWidth: '400px',
     margin: 'auto',
   };
@@ -71,24 +99,33 @@ const BusForm = () => {
   };
 
   return (
-    <div style={formContainerStyle}>
-      <h1 style={{ marginBottom: '20px' }}>Bus Booking Form</h1>
-      <input type="text" name="name" placeholder="Name" style={inputStyle} value={formData.name} onChange={handleChange} />
-      <input type="date" name="dob" placeholder="DOB" style={inputStyle} value={formData.dob} onChange={handleChange} />
-      <input type="text" name="address" placeholder="Address" style={inputStyle} value={formData.address} onChange={handleChange} />
-      <input type="text" name="stop" placeholder="Stop" style={inputStyle} value={formData.stop} onChange={handleChange} />
-      <input type="text" name="phone" placeholder="Phone" style={inputStyle} value={formData.phone} onChange={handleChange} />
-      <input type="text" name="parentPhone" placeholder="Parent's Mobile" style={inputStyle} value={formData.parentPhone} onChange={handleChange} />
-      <input type="text" name="department" placeholder="Department" style={inputStyle} value={formData.department} onChange={handleChange} />
-      <input type="text" name="year" placeholder="Year" style={inputStyle} value={formData.year} onChange={handleChange} />
-      <button 
-        onClick={handleSubmit} 
-        style={buttonStyle} 
-        onMouseEnter={handleButtonHover} 
-        onMouseLeave={handleButtonLeave}
-      >
-        Submit & Book
-      </button>
+    <div style={pageStyle}>
+      {/* Blurred Background */}
+      <div style={blurredBackgroundStyle}></div>
+
+      {/* College Logo (Optional) */}
+      <img src={collegeLogo} alt="College Logo" style={{ width: '120px', marginBottom: '20px' }} />
+
+      {/* Form Container */}
+      <div style={formContainerStyle}>
+        <h1 style={{ marginBottom: '20px' }}>Bus Booking Form</h1>
+        <input type="text" name="name" placeholder="Name" style={inputStyle} value={formData.name} onChange={handleChange} />
+        <input type="date" name="dob" placeholder="DOB" style={inputStyle} value={formData.dob} onChange={handleChange} />
+        <input type="text" name="address" placeholder="Address" style={inputStyle} value={formData.address} onChange={handleChange} />
+        <input type="text" name="stop" placeholder="Stop" style={inputStyle} value={formData.stop} onChange={handleChange} />
+        <input type="text" name="phone" placeholder="Phone" style={inputStyle} value={formData.phone} onChange={handleChange} />
+        <input type="text" name="parentPhone" placeholder="Parent's Mobile" style={inputStyle} value={formData.parentPhone} onChange={handleChange} />
+        <input type="text" name="department" placeholder="Department" style={inputStyle} value={formData.department} onChange={handleChange} />
+        <input type="text" name="year" placeholder="Year" style={inputStyle} value={formData.year} onChange={handleChange} />
+        <button 
+          onClick={handleSubmit} 
+          style={buttonStyle} 
+          onMouseEnter={handleButtonHover} 
+          onMouseLeave={handleButtonLeave}
+        >
+          Submit & Book
+        </button>
+      </div>
     </div>
   );
 };

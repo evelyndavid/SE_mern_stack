@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import backgroundImage from '../assets/background.jpg'; // Path to your local image
+
+import backgroundImage from '../assets/college.jpg'; // Adjust the path to your background image
+import logoImage from '../assets/logo.png'; // Adjust the path to your logo
 
 const WelcomePage = () => {
   const navigate = useNavigate();
@@ -11,82 +13,125 @@ const WelcomePage = () => {
 
   // Styles
   const containerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
+    width: '400px',
     textAlign: 'center',
-    backgroundImage: `url(${backgroundImage})`, // Use the imported image
-    backgroundSize: 'cover', // Ensure the image covers the entire background
-    backgroundPosition: 'center', // Center the image
-    backgroundRepeat: 'no-repeat', // Prevent repeating the image
+    backgroundColor: 'rgba(255, 255, 255, 0.9)', // Semi-transparent background
+    padding: '30px',
+    borderRadius: '10px',
+    boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
+    position: 'relative',
+    zIndex: 1,
   };
 
-  const headingStyle = {
-    fontSize: '36px',
+  const pageStyle = {
+    display: 'flex',
+    justifyContent: 'center', // Horizontally center the container
+    alignItems: 'center', // Vertically center the container
+    height: '100vh',
+    fontFamily: 'Arial, sans-serif',
+    margin: 0,
+    padding: 0,
+  };
+
+  const backgroundStyle = {
+    content: '""', // Pseudo-element behavior
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundImage: `url(${backgroundImage})`, // Path to your background image
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    filter: 'blur(8px)', // Apply blur effect
+    zIndex: -1,
+    opacity: 0.6, // Slight transparency for a lively effect
+  };
+
+  const collegeNameStyle = {
+    fontSize: '1.8em',
+    fontWeight: 'bold',
+    marginBottom: '10px',
+    color: '#333',
+  };
+
+  const collegeLogoStyle = {
+    width: '120px',
+    marginBottom: '10px',
+  };
+
+  const systemHeadingStyle = {
+    fontSize: '1.5em',
+    fontWeight: 600,
+    marginTop: '10px',
     marginBottom: '20px',
-    color: '#fff', // Adjust text color for better contrast on background image
-  };
-
-  const linkStyle = {
-    margin: '10px 0',
-    padding: '10px 20px',
-    background: '#007bff',
-    color: 'white',
-    textDecoration: 'none',
-    borderRadius: '5px',
-    transition: 'background 0.3s',
-    display: 'inline-block',
+    color: '#555',
   };
 
   const buttonStyle = {
-    marginTop: '10px',
-    padding: '10px 20px',
-    background: '#28a745',
-    color: 'white',
+    backgroundColor: '#4CAF50',
     border: 'none',
-    borderRadius: '5px',
+    color: 'white',
+    padding: '10px 20px',
+    textAlign: 'center',
+    textDecoration: 'none',
     fontSize: '16px',
+    margin: '10px',
     cursor: 'pointer',
-    transition: 'background 0.3s',
-  };
-
-  const linkHoverStyle = {
-    background: '#0056b3',
+    borderRadius: '5px',
+    transition: 'background-color 0.3s ease',
   };
 
   const buttonHoverStyle = {
-    background: '#218838',
+    background: '#45a049',
   };
 
+  
+
   return (
-    <div style={containerStyle}>
-      <h1 style={headingStyle}>Welcome to TCE</h1>
-      <Link 
-        to="/login" 
-        style={linkStyle} 
-        onMouseEnter={(e) => e.currentTarget.style.background = linkHoverStyle.background} 
-        onMouseLeave={(e) => e.currentTarget.style.background = '#007bff'}
-      >
-        Login
-      </Link>
-      <Link 
-        to="/signup" 
-        style={linkStyle} 
-        onMouseEnter={(e) => e.currentTarget.style.background = linkHoverStyle.background} 
-        onMouseLeave={(e) => e.currentTarget.style.background = '#007bff'}
-      >
-        Signup
-      </Link>
-      <button 
-        onClick={handleBookingClick} 
-        style={buttonStyle}
-        onMouseEnter={(e) => e.currentTarget.style.background = buttonHoverStyle.background}
-        onMouseLeave={(e) => e.currentTarget.style.background = '#28a745'}
-      >
-        Go to Booking Page
-      </button>
+    <div style={pageStyle}>
+      <div style={backgroundStyle}></div> {/* Background layer */}
+
+      <div style={containerStyle}>
+        {/* College Name */}
+        <h1 style={collegeNameStyle}>Thiagarajar College of Engineering</h1> {/* Replace with actual college name */}
+
+        {/* College Logo */}
+        <img src={logoImage} alt="College Logo" style={collegeLogoStyle} />
+
+        {/* College Transport Management System Heading */}
+        <h2 style={systemHeadingStyle}>College Transport Management System</h2>
+
+        {/* Buttons */}
+        <div>
+          <Link 
+            to="/login" 
+            style={buttonStyle}
+            onMouseEnter={(e) => e.currentTarget.style.background = buttonHoverStyle.background}
+            onMouseLeave={(e) => e.currentTarget.style.background = '#4CAF50'}
+          >
+            Login
+          </Link>
+          <Link 
+            to="/signup" 
+            style={buttonStyle}
+            onMouseEnter={(e) => e.currentTarget.style.background = buttonHoverStyle.background}
+            onMouseLeave={(e) => e.currentTarget.style.background = '#4CAF50'}
+          >
+            Signup
+          </Link>
+
+          {/* New Booking Page Button */}
+          <button 
+          onClick={handleBookingClick} 
+          style={buttonStyle}
+          onMouseEnter={(e) => e.currentTarget.style.background = buttonHoverStyle.background}
+          onMouseLeave={(e) => e.currentTarget.style.background = '#28a745'}
+        >
+          Go to Booking Page
+        </button>
+        </div>
+      </div>
     </div>
   );
 };
