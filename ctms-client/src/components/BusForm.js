@@ -1,29 +1,52 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Ensure axios is imported
 import backgroundImage from '../assets/background.jpg'; // Background image
 import collegeLogo from '../assets/logo.png'; // Optional college logo
 
 const BusForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: '', dob: '', address: '', stop: '', phone: '', parentPhone: '', department: '', year: ''
-  });
+    name: '', 
+    dob: '', 
+    address: '', 
+    stop: '', 
+    phone: '', 
+    parentPhone: '', 
+    department: '', 
+    year: '',
+    bus: '' // Add this line
+});
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async () => {
-    try {
-      // Handle form submission here (e.g., saving data to the backend)
-      alert('Booking successful!');
-      navigate('/payment');  // Redirect to Payment Page
-    } catch (error) {
-      alert('Booking failed. Please try again.');
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const dataToSend = {
+          
+      bus: formData.bus, // Ensure bus is included
+      dob: formData.dob  // Ensure dob is included
   };
 
-  // Page style
+    try {
+        
+       
+        // Post the data using axios
+        await axios.post('http://localhost:5000/api/booking/book', dataToSend);
+        alert('Booking successful');
+        navigate('/payment'); // Redirect to payment page after successful booking
+    } catch (error) {
+      console.log({dataToSend});
+        console.error('Booking failed:', error);
+        alert('Booking failed');
+    }
+};
+
+
+  // Page styles
   const pageStyle = {
     position: 'relative',
     width: '100%',
@@ -110,6 +133,15 @@ const BusForm = () => {
       <div style={formContainerStyle}>
         <h1 style={{ marginBottom: '20px' }}>Bus Booking Form</h1>
         <input type="text" name="name" placeholder="Name" style={inputStyle} value={formData.name} onChange={handleChange} />
+        <input 
+    type="text" 
+    name="bus" 
+    placeholder="Bus Number" 
+    style={inputStyle} 
+    value={formData.bus} 
+    onChange={handleChange} 
+/>
+
         <input type="date" name="dob" placeholder="DOB" style={inputStyle} value={formData.dob} onChange={handleChange} />
         <input type="text" name="address" placeholder="Address" style={inputStyle} value={formData.address} onChange={handleChange} />
         <input type="text" name="stop" placeholder="Stop" style={inputStyle} value={formData.stop} onChange={handleChange} />

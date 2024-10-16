@@ -5,6 +5,7 @@ const paymentSchema = new mongoose.Schema({
   cardNumber: String,
   branchName: String,
   bankName: String,
+  expirydate:Date,
   cvv: String,
   pinCode: String,
 });

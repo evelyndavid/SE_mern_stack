@@ -9,17 +9,30 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await axios.post('/api/auth/login', { email, password });
+  //     alert('Login successful');
+  //     navigate('/booking'); // Redirect to Booking Page
+  //   } catch (error) {
+  //     console.error('Login failed:', error);
+  //     alert('Login failed');
+  //   }
+  // };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/auth/login', { email, password });
-      alert('Login successful');
-      navigate('/booking'); // Redirect to Booking Page
+      await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      alert('login successful');
+      navigate('/booking'); // Redirect to Login Page after signup
     } catch (error) {
-      console.error('Login failed:', error);
-      alert('Login failed');
+      console.error('login failed');
+      alert('login failed');
     }
   };
+
 
   const pageStyle = {
     position: 'relative',

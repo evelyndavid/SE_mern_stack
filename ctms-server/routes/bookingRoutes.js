@@ -1,7 +1,9 @@
 const express = require('express');
 const { bookBus } = require('../controllers/bookingController');
-const router = express.Router();
+const userRoutes = express.Router();
 
-router.post('/book', bookBus);
+userRoutes.post('/book', bookBus);
 
-module.exports = router;
+module.exports = userRoutes;
+
+

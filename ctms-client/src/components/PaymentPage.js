@@ -8,13 +8,29 @@ const PaymentPage = () => {
   const [cardNumber, setCardNumber] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
+  const [branchName, setBranchName] = useState(''); // State for branch name
+  const [bankName, setBankName] = useState(''); // State for bank name
+  const [pincode, setPincode] = useState(''); // State for pincode
   const navigate = useNavigate(); // Initialize navigate
+
   const handeltrack = async (e) => {
     e.preventDefault();
-    navigate('/thank-you'); // Redirect to Thank You Page
+    try {
+      await axios.post('http://localhost:5000/api/payment/pay', {
+        cardNumber,
+        branchName,
+        bankName,
+        expiryDate,
+        cvv,
+        pincode
+      });
+      alert('Payment successful');
+      navigate('/thank-you'); // Redirect to Thank You Page
+    } catch (error) {
+      console.error('Payment failed', error);
+      alert('Payment failed');
+    }
   };
-
- 
 
   const pageStyle = {
     position: 'relative',
@@ -115,6 +131,30 @@ const PaymentPage = () => {
             placeholder="CVV"
             value={cvv}
             onChange={(e) => setCvv(e.target.value)}
+            required
+            style={inputStyle}
+          />
+          <input
+            type="text"
+            placeholder="Branch Name"
+            value={branchName}
+            onChange={(e) => setBranchName(e.target.value)}
+            required
+            style={inputStyle}
+          />
+          <input
+            type="text"
+            placeholder="Bank Name"
+            value={bankName}
+            onChange={(e) => setBankName(e.target.value)}
+            required
+            style={inputStyle}
+          />
+          <input
+            type="text"
+            placeholder="Pincode"
+            value={pincode}
+            onChange={(e) => setPincode(e.target.value)}
             required
             style={inputStyle}
           />
